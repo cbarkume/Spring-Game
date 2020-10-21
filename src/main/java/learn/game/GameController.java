@@ -1,9 +1,6 @@
 package learn.game;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -14,6 +11,11 @@ public class GameController {
     ArrayList<String> correctLetters = new ArrayList<>();
     ArrayList<String> incorrectLetters = new ArrayList<>();
     Temp temp = new Temp(wordTheyGuess);
+
+    @PostMapping("/start")
+    public String startGame(){
+        return getIncorrectLetters() + "\nWelcome to hangman!";
+    }
 
     @PutMapping("/guess/{letter}")
     public String guessLetter(@PathVariable String letter) {
@@ -39,6 +41,7 @@ public class GameController {
     public String getWord() {
         return temp.getTemp().toString();
     }
+
 
     private String getIncorrectLetters(){
         StringBuilder printedLetters = new StringBuilder();
